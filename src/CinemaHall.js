@@ -5,63 +5,57 @@ const ROW = 10,
   COL = 10;
 
 export default function CinemaHall() {
-  const [selectedSeats, setSelectedSeats] = useState({});
+  const [selectedSeats, setselectedSeats] = useState({});
   const [bookedSeats, setBookedSeats] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
 
   const addSeats = (series, number) => {
     if (!selectedSeats[series]?.includes(series + number)) {
-      setSelectedSeats({
+      setselectedSeats({
         ...selectedSeats,
         [series.toString()]: Array.isArray(selectedSeats[series])
-          ? [
-              ...selectedSeats?.[series],
-              `${series} + ${number.toString()}`,
-            ]
+          ? [...selectedSeats?.[series], series + number.toString()]
           : [series + number.toString()],
       });
     } else {
-      setSelectedSeats({
+      setselectedSeats({
         ...selectedSeats,
         [series.toString()]: selectedSeats?.[series]?.filter((item) => {
           if (item !== series + number) {
             return true;
           }
-          return false;
         }),
       });
     }
   };
 
   const bookSeats = () => {
-    if (Object.keys(selectedSeats)?.length === 0) {
+    if (Object.keys(selectedSeats)?.length == 0) {
       alert("select atleast one seat");
       return;
     }
 
     setIsSelected(true);
-
     const keys = Object.keys(selectedSeats);
     const selected = [];
-
-    keys.forEach((item) => {
-      selectedSeats[item].forEach((seat) => {
-        selected.push(seat);
+    keys.map((item) => {
+      return selectedSeats[item].map((item) => {
+        selected.push(item);
       });
     });
 
     setBookedSeats(selected);
-    setSelectedSeats({});
+    setselectedSeats({});
   };
 
   const clearSeats = () => {
-    setSelectedSeats({});
+    setselectedSeats({});
   };
 
   const resetSeats = () => {
     setIsSelected(false);
     setBookedSeats([]);
-    setSelectedSeats({});
+    setselectedSeats({});
   };
 
   const obj = {
@@ -108,7 +102,7 @@ export default function CinemaHall() {
                     bookedSeats.includes(obj[rowIdx] + colIdx) && isSelected
                       ? "disabled-seat"
                       : selectedSeats[obj[rowIdx]]?.includes(
-                          obj[rowIdx] + colIdx.toString()
+                          obj[rowIdx] + colIdx?.toString()
                         )
                       ? "selected-seat"
                       : "",
