@@ -45,7 +45,7 @@ export default function CinemaHall() {
       });
     });
 
-    setBookedSeats(selected);
+    setBookedSeats([...selected,...bookedSeats]);
     setselectedSeats({});
   };
 
