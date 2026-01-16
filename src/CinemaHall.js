@@ -24,13 +24,14 @@ export default function CinemaHall() {
           if (item !== series + number) {
             return true;
           }
+          return false;
         }),
       });
     }
   };
 
   const bookSeats = () => {
-    if (Object.keys(selectedSeats)?.length == 0) {
+    if (Object.keys(selectedSeats)?.length === 0) {
       alert("select atleast one seat");
       return;
     }
@@ -38,9 +39,9 @@ export default function CinemaHall() {
     setIsSelected(true);
     const keys = Object.keys(selectedSeats);
     const selected = [];
-    keys.map((item) => {
-      return selectedSeats[item].map((item) => {
-        selected.push(item);
+    keys.forEach((item) => {
+      selectedSeats[item].forEach((seat) => {
+        selected.push(seat);
       });
     });
 
