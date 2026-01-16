@@ -27,6 +27,7 @@ export default function CinemaHall() {
           if (item !== series + number) {
             return true;
           }
+          return false;
         }),
       });
     }
@@ -43,9 +44,9 @@ export default function CinemaHall() {
     const keys = Object.keys(selectedSeats);
     const selected = [];
 
-    keys.map((item) => {
-      return selectedSeats[item].map((item) => {
-        selected.push(item);
+    keys.forEach((item) => {
+      selectedSeats[item].forEach((seat) => {
+        selected.push(seat);
       });
     });
 
